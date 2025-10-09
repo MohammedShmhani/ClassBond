@@ -1,4 +1,4 @@
-package com.example.classbond.controller;
+package com.example.classbond;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
