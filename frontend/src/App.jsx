@@ -1,10 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [message, setMessage] = useState("Loading...");
+
+  useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    fetch(`${API_URL}/api/hello`)
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to fetch");
+        return res.json();
+      })
+      .then(data => setMessage(data.message))
+      .catch(err => setMessage(`Error: ${err.message}`));
+  }, []);
 
   return (
     <>
@@ -17,6 +30,7 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h2>{message}</h2>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
